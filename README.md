@@ -18,6 +18,6 @@ Requirements:
 - Twilio account (sms service)
 - Infobip account (sms service)
 
-1. Create `.env.local` file using `.env.local.example` as template and fill it with own credentials/configs.
+1. Create `.env.local` file using `.env.local.example` as template and fill it with your own credentials/configs.
 2. Run `docker compose up -d` to run docker containers.
 3. Open `http://localhost:8000/api/doc` to display OpenApi documentation.
