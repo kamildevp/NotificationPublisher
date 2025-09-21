@@ -1,0 +1,20 @@
+services:
+  php:
+    build:
+      target: app_dev
+    volumes:
+    - ./docker/php/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    extra_hosts:
+    - host.docker.internal:host-gateway
+    
+  nginx:
+    ports: 
+    - "${APP_PORT:-8000}:80"
+
+  database:
+    ports: 
+    - "${DATABASE_PORT:-32770}:5432"
+
+  rabbitmq:
+    ports: 
+    - "${RABBITMQ_MANAGEMENT_PORT:-32411}:15672"
