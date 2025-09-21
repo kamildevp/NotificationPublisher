@@ -1,0 +1,7 @@
+controllers:
+    resource:
+        path: ../src/UserInterface/Http/Controller/
+        namespace: App\UserInterface\Http\Controller
+    type: attribute
+    prefix: '/api'
+    trailing_slash_on_root: false

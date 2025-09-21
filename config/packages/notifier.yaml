@@ -1,0 +1,5 @@
+framework:
+    notifier:
+        texter_transports:
+            main: '%env(TWILIO_DSN)% || %env(INFOBIP_DSN)%'
+
