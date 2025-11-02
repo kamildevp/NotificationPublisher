@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\ValueObject;
 
+use InvalidArgumentException;
+
 abstract class EmailValueObject
 {
-    protected $value;
+    protected string $value;
 
     public function __construct(string $value)
     {
@@ -22,8 +24,8 @@ abstract class EmailValueObject
 
     protected function ensureIsValidEmail(string $email): void
     {
-        if (false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException(sprintf('The email <%s> is not valid', $email));
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            throw new InvalidArgumentException(sprintf('The value <%s> is not valid email', $email));
         }
     }
 }
