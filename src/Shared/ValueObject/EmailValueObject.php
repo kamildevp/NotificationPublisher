@@ -8,9 +8,7 @@ use InvalidArgumentException;
 
 abstract class EmailValueObject
 {
-    protected string $value;
-
-    public function __construct(string $value)
+    public function __construct(protected string $value)
     {
         $this->ensureIsValidEmail($value);
 

@@ -8,9 +8,7 @@ use InvalidArgumentException;
 
 abstract class PhoneValueObject
 {
-    protected string $value;
-
-    public function __construct(string $value)
+    public function __construct(protected string $value)
     {
         $this->ensureIsValidPhone($value);
 
