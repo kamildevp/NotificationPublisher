@@ -6,7 +6,7 @@ namespace App\Notification\Shared\Domain\ValueObject;
 
 use App\Shared\ValueObject\PhoneValueObject;
 
-class Phone extends PhoneValueObject
+final class Phone extends PhoneValueObject
 {
     
 }

@@ -6,7 +6,7 @@ namespace App\Notification\Shared\Domain\Entity\ValueObject;
 
 use App\Shared\ValueObject\AggregateRootId;
 
-class NotificationId extends AggregateRootId
+final class NotificationId extends AggregateRootId
 {
     
 }

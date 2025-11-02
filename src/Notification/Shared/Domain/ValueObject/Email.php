@@ -6,7 +6,7 @@ namespace App\Notification\Shared\Domain\ValueObject;
 
 use App\Shared\ValueObject\EmailValueObject;
 
-class Email extends EmailValueObject
+final class Email extends EmailValueObject
 {
     
 }
