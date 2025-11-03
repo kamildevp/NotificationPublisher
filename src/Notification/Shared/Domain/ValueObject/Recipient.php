@@ -14,4 +14,19 @@ final class Recipient
     {
         
     }
+
+    public function getCustomerIdentifier(): string
+    {
+        return $this->customerIdentifier;
+    }
+
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    public function getPhone(): Phone
+    {
+        return $this->phone;
+    }
 }
