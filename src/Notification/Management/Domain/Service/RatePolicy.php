@@ -9,7 +9,7 @@ use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
 use DateTimeImmutable;
 
-class RatePolicy implements NotificationPolicyInterface
+class RatePolicy implements NotificationManagementPolicyInterface
 {
     public function __construct(
         private NotificationRepositoryInterface $notificationRepository,
