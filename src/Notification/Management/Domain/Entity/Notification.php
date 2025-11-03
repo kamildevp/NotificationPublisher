@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Notification\Management\Domain\Entity;
 
 use App\Notification\Management\Domain\Event\NotificationCreatedEvent;
+use App\Notification\Management\Domain\Event\NotificationDiscardedEvent;
+use App\Notification\Management\Domain\ValueObject\NotificationState;
 use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
@@ -20,6 +22,8 @@ class Notification extends AggregateRoot
     private array $data;
 
     private Recipient $recipient;
+
+    private NotificationState $state;
 
     private DateTimeImmutable $createdAt;
 
@@ -69,6 +73,18 @@ class Notification extends AggregateRoot
         return $this;
     }
 
+    public function getState(): NotificationState
+    {
+        return $this->state;
+    }
+
+    public function setState(NotificationState $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
@@ -92,9 +108,28 @@ class Notification extends AggregateRoot
         $notification->setType($notificationType);
         $notification->setData($notificationData);
         $notification->setRecipient($recipient);
+        $notification->setState(NotificationState::SCHEDULED);
         $notification->setCreatedAt(new DateTimeImmutable());
 
         $notification->recordDomainEvent(new NotificationCreatedEvent($notificationId, $notificationType, $recipient, $notificationData));
+        return $notification;
+    }
+
+    public static function discard(
+        NotificationId $notificationId,
+        NotificationType $notificationType,
+        array $notificationData,
+        Recipient $recipient,
+    ): self
+    {
+        $notification = new self($notificationId);
+        $notification->setType($notificationType);
+        $notification->setData($notificationData);
+        $notification->setRecipient($recipient);
+        $notification->setState(NotificationState::DISCARDED);
+        $notification->setCreatedAt(new DateTimeImmutable());
+
+        $notification->recordDomainEvent(new NotificationDiscardedEvent($notificationId, $notificationType, $recipient, $notificationData));
         return $notification;
     }
 }
