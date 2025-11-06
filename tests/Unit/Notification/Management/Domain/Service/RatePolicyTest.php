@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Notification\Management\Domain\Service;
 
+use App\Notification\Management\Domain\Config\RateConfig;
 use App\Notification\Management\Domain\Repository\NotificationRepositoryInterface;
 use App\Notification\Management\Domain\Service\RatePolicy;
 use App\Notification\Shared\Domain\ValueObject\Email;
@@ -25,7 +26,7 @@ class RatePolicyTest extends TestCase
 
     public function testCanNotificationBeSentReturnsTrueWhenRateLimitNotExceeded(): void
     {
-        $config = [NotificationType::ALERT->value => ['max_per_hour' => 30]];
+        $config = [NotificationType::ALERT->value => new RateConfig(30)];
 
         $email = new Email('user@example.com');
         $phone = new Phone('+48213721372');
@@ -50,7 +51,7 @@ class RatePolicyTest extends TestCase
 
     public function testCanNotificationBeSentReturnsFalseWhenRateLimitExceeded(): void
     {
-        $config = [NotificationType::ALERT->value => ['max_per_hour' => 30]];
+        $config = [NotificationType::ALERT->value => new RateConfig(30)];
 
         $email = new Email('user@example.com');
         $phone = new Phone('+48213721372');
@@ -71,5 +72,24 @@ class RatePolicyTest extends TestCase
         $result = $ratePolicy->canNotificationBeSent($recipient, NotificationType::ALERT, $notificationData);
 
         $this->assertFalse($result);
+    }
+
+    public function testCanNotificationBeSentReturnsTrueWhenRateLimitNotDefined(): void
+    {
+        $config = [NotificationType::ALERT->value => new RateConfig(30)];
+
+        $email = new Email('user@example.com');
+        $phone = new Phone('+48213721372');
+        $recipient = new Recipient('2a8045fd', $email, $phone);
+        $notificationData = ['message' => 'My message'];
+
+        $this->notificationRepositoryMock
+            ->expects($this->never())
+            ->method('getRecipientNotificationCount');
+
+        $ratePolicy = new RatePolicy($this->notificationRepositoryMock, $config);
+        $result = $ratePolicy->canNotificationBeSent($recipient, NotificationType::INFO, $notificationData);
+
+        $this->assertTrue($result);
     }
 }

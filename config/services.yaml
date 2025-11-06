@@ -43,5 +43,9 @@ services:
 
     App\Notification\Management\Domain\Service\RatePolicy:
         arguments:
-            $config: '%notification_management.rate_policy.config%'
+            $config: !service
+                factory: ['@App\Shared\Infrastructure\Config\ConfigFactory', 'create']
+                arguments:
+                    - '%notification_management.rate_policy.config%'
+                    - 'App\Notification\Management\Domain\Config\RateConfig[]'
 
