@@ -15,7 +15,7 @@ use DateTimeImmutable;
 
 class Notification extends AggregateRoot
 {
-    public function __construct(
+    private function __construct(
         private NotificationId $id,
         private NotificationType $type,
         private array $data,
