@@ -7,7 +7,7 @@ namespace App\Notification\Management\Domain\Event;
 use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
-use App\Shared\Event\DomainEventInterface;
+use App\Shared\Domain\Event\DomainEventInterface;
 
 final class NotificationDiscardedEvent implements DomainEventInterface
 {

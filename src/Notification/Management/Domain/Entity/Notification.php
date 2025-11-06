@@ -10,26 +10,21 @@ use App\Notification\Management\Domain\ValueObject\NotificationState;
 use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
-use App\Shared\Aggregate\AggregateRoot;
+use App\Shared\Domain\Aggregate\AggregateRoot;
 use DateTimeImmutable;
 
 class Notification extends AggregateRoot
 {
-    private NotificationId $id;
-
-    private NotificationType $type;
-
-    private array $data;
-
-    private Recipient $recipient;
-
-    private NotificationState $state;
-
-    private DateTimeImmutable $createdAt;
-
-    public function __construct(NotificationId $id)
+    public function __construct(
+        private NotificationId $id,
+        private NotificationType $type,
+        private array $data,
+        private Recipient $recipient,
+        private NotificationState $state,
+        private DateTimeImmutable $createdAt,
+    )
     {
-        $this->id = $id;
+
     }
 
     public function getId(): NotificationId
@@ -42,23 +37,9 @@ class Notification extends AggregateRoot
         return $this->type;
     }
 
-    public function setType(NotificationType $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getData(): array
     {
         return $this->data;
-    }
-
-    public function setData(array $data): self
-    {
-        $this->data = $data;
-
-        return $this;
     }
 
     public function getRecipient(): Recipient
@@ -66,35 +47,14 @@ class Notification extends AggregateRoot
         return $this->recipient;
     }
 
-    public function setRecipient(Recipient $recipient): self
-    {
-        $this->recipient = $recipient;
-
-        return $this;
-    }
-
     public function getState(): NotificationState
     {
         return $this->state;
     }
 
-    public function setState(NotificationState $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
     public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public static function create(
@@ -104,12 +64,14 @@ class Notification extends AggregateRoot
         Recipient $recipient,
     ): self
     {
-        $notification = new self($notificationId);
-        $notification->setType($notificationType);
-        $notification->setData($notificationData);
-        $notification->setRecipient($recipient);
-        $notification->setState(NotificationState::SCHEDULED);
-        $notification->setCreatedAt(new DateTimeImmutable());
+        $notification = new self(
+            $notificationId,
+            $notificationType,
+            $notificationData,
+            $recipient,
+            NotificationState::SCHEDULED,
+            new DateTimeImmutable()
+        );
 
         $notification->recordDomainEvent(new NotificationCreatedEvent($notificationId, $notificationType, $recipient, $notificationData));
         return $notification;
@@ -122,12 +84,14 @@ class Notification extends AggregateRoot
         Recipient $recipient,
     ): self
     {
-        $notification = new self($notificationId);
-        $notification->setType($notificationType);
-        $notification->setData($notificationData);
-        $notification->setRecipient($recipient);
-        $notification->setState(NotificationState::DISCARDED);
-        $notification->setCreatedAt(new DateTimeImmutable());
+        $notification = new self(
+            $notificationId,
+            $notificationType,
+            $notificationData,
+            $recipient,
+            NotificationState::DISCARDED,
+            new DateTimeImmutable()
+        );
 
         $notification->recordDomainEvent(new NotificationDiscardedEvent($notificationId, $notificationType, $recipient, $notificationData));
         return $notification;
