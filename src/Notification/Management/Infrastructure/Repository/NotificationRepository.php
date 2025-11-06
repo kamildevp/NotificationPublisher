@@ -2,13 +2,11 @@
 
 namespace App\Notification\Management\Infrastructure\Repository;
 
-use App\Notification\Management\Domain\Entity\Notification as DomainNotification;
+use App\Notification\Management\Domain\Entity\Notification;
 use App\Notification\Management\Domain\Repository\NotificationRepositoryInterface;
 use App\Notification\Management\Domain\ValueObject\NotificationState;
-use App\Notification\Management\Infrastructure\Entity\Notification;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
-use App\Notification\Shared\Domain\ValueObject\Recipient as DomainRecipient;
-use App\Notification\Shared\Infrastructure\Entity\Embeddable\Recipient;
+use App\Notification\Shared\Domain\ValueObject\Recipient;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,25 +21,14 @@ class NotificationRepository extends ServiceEntityRepository implements Notifica
         parent::__construct($registry, Notification::class);
     }
 
-    public function save(DomainNotification $domainNotification): void
+    public function save(Notification $notification): void
     {
-        $recipient = new Recipient();
-        $recipient->setCustomerIdentifier($domainNotification->getRecipient()->getCustomerIdentifier());
-        $recipient->setEmail($domainNotification->getRecipient()->getEmail()->getValue());
-        $recipient->setPhone($domainNotification->getRecipient()->getPhone()->getValue());
-        $notification = new Notification($domainNotification->getId()->getValue());
-        $notification->setType($domainNotification->getType()->value);
-        $notification->setRecipient($recipient);
-        $notification->setData($domainNotification->getData());
-        $notification->setState($domainNotification->getState()->value);
-        $notification->setCreatedAt($domainNotification->getCreatedAt());
-
         $this->getEntityManager()->persist($notification);
         $this->getEntityManager()->flush();
     }
 
     public function getRecipientNotificationCount(
-        DomainRecipient $recipient, 
+        Recipient $recipient, 
         NotificationType $notificationType, 
         DateTimeInterface $from, 
         DateTimeInterface $to
@@ -52,7 +39,7 @@ class NotificationRepository extends ServiceEntityRepository implements Notifica
             ->where('n.recipient.customerIdentifier = :recipientIdentifier')
             ->andWhere('n.state != :discardedState')
             ->andWhere('n.type = :type')
-            ->andWhere('n.createdAt => :from')
+            ->andWhere('n.createdAt >= :from')
             ->andWhere('n.createdAt <= :to')
             ->setParameter('recipientIdentifier', $recipient->getCustomerIdentifier())
             ->setParameter('discardedState', NotificationState::DISCARDED->value)

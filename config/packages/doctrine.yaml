@@ -5,24 +5,30 @@ doctrine:
                 use_savepoints: true
                 url: '%env(resolve:DATABASE_URL)%'
                 server_version: '15'
+        types:
+            notification_id: App\Notification\Shared\Infrastructure\Doctrine\Type\NotificationIdType
+            notification_type: App\Notification\Shared\Infrastructure\Doctrine\Type\NotificationTypeType
+            email: App\Notification\Shared\Infrastructure\Doctrine\Type\EmailType
+            phone: App\Notification\Shared\Infrastructure\Doctrine\Type\PhoneType
+            notification_state: App\Notification\Management\Infrastructure\Doctrine\Type\NotificationStateType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            NotificationShared:
+            NotificationSharedValueObject:
                 is_bundle: false
-                type: attribute
-                dir: '%kernel.project_dir%/src/Notification/Shared/Infrastructure/Entity'
-                prefix: 'App\Notification\Shared\Infrastructure\Entity'
-                alias: NotificationShared
-            NotificationManagement:
+                type: xml
+                dir: '%kernel.project_dir%/src/Notification/Shared/Infrastructure/Doctrine/Mapping/Entity/Embeddable'
+                prefix: 'App\Notification\Shared\Domain\ValueObject'
+                alias: NotificationSharedValueObject
+            NotificationManagementEntity:
                 is_bundle: false
-                type: attribute
-                dir: '%kernel.project_dir%/src/Notification/Management/Infrastructure/Entity'
-                prefix: 'App\Notification\Management\Infrastructure\Entity'
-                alias: NotificationManagement
+                type: xml
+                dir: '%kernel.project_dir%/src/Notification/Management/Infrastructure/Doctrine/Mapping/Entity'
+                prefix: 'App\Notification\Management\Domain\Entity'
+                alias: NotificationManagementEntity
 
 when@test:
     doctrine:

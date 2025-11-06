@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Notification\Management\Domain\Entity\Notification" table="notification" repository-class="App\Notification\Management\Infrastructure\Repository\NotificationRepository">
+        <id name="id" type="notification_id" column="id" length="255" />
+
+        <field name="type" type="notification_type" column="type" length="255" />
+        <field name="data" type="json" column="data" />
+        <embedded name="recipient" class="App\Notification\Shared\Domain\ValueObject\Recipient" prefix="recipient_" />
+        <field name="state" type="notification_state" column="state" length="255" />
+        <field name="createdAt" type="datetime_immutable" column="created_at"  />
+    </entity>
+
+</doctrine-mapping>
