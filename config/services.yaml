@@ -9,9 +9,19 @@ parameters:
     enable_sms_channel: '%env(bool:ENABLE_SMS_CHANNEL)%'
     alert_rate_limit: '%env(int:ALERT_RATE_LIMIT)%'
     env(ALERT_RATE_LIMIT): 300
+    env(AVAILABLE_COMMUNICATION_CHANNELS): '["email", "sms"]'
+    env(INFO_COMMUNICATION_CHANNELS): '["email"]'
+    env(DELIVERY_MAX_RETRIES): 3
+    env(DELIVERY_RETRY_DELAY): 2000
+    env(DELIVERY_RETRY_DELAY_MULTIPLIER): 2
     notification_management.rate_policy.config:
         alert:
             max_per_hour: '%env(int:ALERT_RATE_LIMIT)%'
+    notification_delivery.notification_type_channels_policy.config:
+        info:
+            channels: '%env(json:INFO_COMMUNICATION_CHANNELS)%'
+    notification_delivery.available_channels_policy.config:
+        channels: '%env(json:AVAILABLE_COMMUNICATION_CHANNELS)%'
     
 services:
     # default configuration for services in *this* file
@@ -49,3 +59,24 @@ services:
                     - '%notification_management.rate_policy.config%'
                     - 'App\Notification\Management\Domain\Config\RateConfig[]'
 
+    App\Notification\Delivery\Domain\Service\NotificationTypeChannelsPolicy:
+        arguments:
+            $config: !service
+                factory: ['@App\Shared\Infrastructure\Config\ConfigFactory', 'create']
+                arguments:
+                    - '%notification_delivery.notification_type_channels_policy.config%'
+                    - 'App\Notification\Delivery\Domain\Config\AvailableChannelsConfig[]'
+
+    App\Notification\Delivery\Domain\Service\AvailableChannelsPolicy:
+        arguments:
+            $config: !service
+                factory: ['@App\Shared\Infrastructure\Config\ConfigFactory', 'create']
+                arguments:
+                    - '%notification_delivery.available_channels_policy.config%'
+                    - 'App\Notification\Delivery\Domain\Config\AvailableChannelsConfig'
+
+    App\Notification\Delivery\Domain\Service\DeliveryRetryPolicy:
+        arguments:
+            $maxRetries: '%env(int:DELIVERY_MAX_RETRIES)%'
+            $retryDelay: '%env(int:DELIVERY_RETRY_DELAY)%'
+            $retryDelayMultiplier: '%env(int:DELIVERY_RETRY_DELAY_MULTIPLIER)%'
