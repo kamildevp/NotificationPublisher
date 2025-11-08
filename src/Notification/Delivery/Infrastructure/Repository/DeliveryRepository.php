@@ -6,6 +6,7 @@ namespace App\Notification\Delivery\Infrastructure\Repository;
 
 use App\Notification\Delivery\Domain\Entity\Delivery;
 use App\Notification\Delivery\Domain\Repository\DeliveryRepositoryInterface;
+use App\Notification\Shared\Domain\Entity\ValueObject\DeliveryId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,5 +24,10 @@ class DeliveryRepository extends ServiceEntityRepository implements DeliveryRepo
     {
         $this->getEntityManager()->persist($delivery);
         $this->getEntityManager()->flush();
+    }
+
+    public function findById(DeliveryId $id): ?Delivery
+    {
+        return parent::find($id);
     }
 }
