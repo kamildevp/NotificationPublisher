@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Notification\Delivery\Infrastructure\Service;
 
 use App\Notification\Delivery\Infrastructure\Enum\EmailType;
-use App\Notification\Shared\Domain\ValueObject\CommunicationChannel;
+use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Notification\Shared\Domain\ValueObject;
+namespace App\Notification\Delivery\Domain\ValueObject;
 
 enum CommunicationChannel: string
 {

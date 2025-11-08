@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Notification\Delivery\Infrastructure\Service;
 
 use App\Notification\Delivery\Infrastructure\Enum\EmailType;
 use App\Notification\Delivery\Infrastructure\Service\EmailSender;
-use App\Notification\Shared\Domain\ValueObject\CommunicationChannel;
+use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
 use App\Notification\Shared\Domain\ValueObject\Email;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Phone;

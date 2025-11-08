@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Notification\Shared\Infrastructure\Doctrine\Type;
+namespace App\Notification\Delivery\Infrastructure\Doctrine\Type;
 
-use App\Notification\Shared\Domain\ValueObject\CommunicationChannel;
+use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
 use App\Shared\Infrastructure\Doctrine\Type\BackedStringEnumType;
 
 final class CommunicationChannelType extends BackedStringEnumType

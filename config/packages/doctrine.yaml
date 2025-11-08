@@ -9,10 +9,11 @@ doctrine:
             notification_id: App\Notification\Shared\Infrastructure\Doctrine\Type\NotificationIdType
             delivery_id: App\Notification\Shared\Infrastructure\Doctrine\Type\DeliveryIdType
             notification_type: App\Notification\Shared\Infrastructure\Doctrine\Type\NotificationTypeType
-            communication_channel: App\Notification\Shared\Infrastructure\Doctrine\Type\CommunicationChannelType
+            communication_channel: App\Notification\Delivery\Infrastructure\Doctrine\Type\CommunicationChannelType
             email: App\Notification\Shared\Infrastructure\Doctrine\Type\EmailType
             phone: App\Notification\Shared\Infrastructure\Doctrine\Type\PhoneType
             notification_state: App\Notification\Management\Infrastructure\Doctrine\Type\NotificationStateType
+            delivery_status: App\Notification\Delivery\Infrastructure\Doctrine\Type\DeliveryStatusType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true

@@ -12,6 +12,9 @@
         <field name="communicationChannel" type="communication_channel" column="communication_channel" length="255" />
         <field name="notificationData" type="json" column="notification_data" />
         <embedded name="recipient" class="App\Notification\Shared\Domain\ValueObject\Recipient" prefix="recipient_" />
+        <field name="status" type="delivery_status" column="status" length="255" />
+        <field name="scheduledAt" type="datetime_immutable" column="scheduled_at"  />
+        <field name="completedAt" type="datetime_immutable" column="completed_at" nullable="true"  />
     </entity>
 
 </doctrine-mapping>
