@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Notification\Management\Application\Service;
 
 use App\Notification\Management\Application\Command\CreateNotificationCommand;
-use App\Notification\Management\Domain\Entity\Notification;
+use App\Notification\Management\Domain\Factory\NotificationFactory;
 use App\Notification\Management\Domain\Repository\NotificationRepositoryInterface;
 use App\Notification\Management\Domain\Service\NotificationManagementPolicyInterface;
 use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
@@ -14,7 +14,6 @@ use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Phone;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -27,8 +26,7 @@ class CreateNotificationHandler
     public function __construct(
         private NotificationRepositoryInterface $notificationRepository,
         private EventDispatcherInterface $eventDispatcher,
-        #[AutowireIterator('notification_management_policy_service')]
-        private iterable $notificationManagementPolicies,
+        private NotificationFactory $notificationFactory,
     )
     {
 
@@ -43,23 +41,14 @@ class CreateNotificationHandler
             new Email($recipientDto->getEmail()),
             new Phone($recipientDto->getPhone())
         );
-        $notificationData = $command->getNotificationData();
         $notificationId = new NotificationId(Uuid::uuid4()->toString());
 
-        $policiesPassed = true;
-        foreach($this->notificationManagementPolicies as $policy){
-            if(!$policy->canNotificationBeSent($recipient, $notificationType, $notificationData)){
-                $policiesPassed = false;
-                break;
-            }
-        }
-
-        if($policiesPassed){
-            $notification = Notification::create($notificationId, $notificationType, $notificationData, $recipient);
-        }
-        else{
-            $notification = Notification::discard($notificationId, $notificationType, $notificationData, $recipient);
-        }
+        $notification = $this->notificationFactory->createNotification(
+            $notificationId,
+            $recipient,
+            $notificationType,
+            $command->getNotificationData()
+        );
         
         $this->notificationRepository->save($notification);
         foreach($notification->pullDomainEvents() as $event){

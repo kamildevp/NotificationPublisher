@@ -65,6 +65,10 @@ services:
                     - '%notification_management.rate_policy.config%'
                     - 'App\Notification\Management\Domain\Config\RateConfig[]'
 
+    App\Notification\Management\Domain\Factory\NotificationFactory:
+        arguments:
+            $notificationManagementPolicies: !tagged_iterator notification_management_policy_service
+
     App\Notification\Delivery\Domain\Service\NotificationTypeChannelsPolicy:
         arguments:
             $config: !service
