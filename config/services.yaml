@@ -90,3 +90,7 @@ services:
             $maxRetries: '%env(int:DELIVERY_MAX_RETRIES)%'
             $retryDelay: '%env(int:DELIVERY_RETRY_DELAY)%'
             $retryDelayMultiplier: '%env(int:DELIVERY_RETRY_DELAY_MULTIPLIER)%'
+
+    App\Notification\Delivery\Domain\Factory\DeliveryFactory:
+        arguments:
+            $notificationDeliveryPolices: !tagged_iterator notification_delivery_policy_service
