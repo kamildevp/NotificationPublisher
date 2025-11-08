@@ -7,10 +7,6 @@ framework:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             async:
                 dsn: '%env(RABBITMQ_URL)%'
-                retry_strategy:
-                    max_retries: 3
-                    delay: 1000
-                    multiplier: 2
                 options:
                     exchange:
                         name: default_exchange
@@ -21,9 +17,8 @@ framework:
             # sync: 'sync://'
 
         routing:
-            # Route your messages to the transports
-            'App\Application\Command\SendNotificationCommand': async
-            'App\Domain\Event\NotificationCreatedEvent': async
+            'App\Notification\Management\Application\Command\*': async
+            'App\Notification\Delivery\Application\Command\*': async
 
 when@test:
    framework:
