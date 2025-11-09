@@ -5,9 +5,6 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     timezone: '%env(APP_TIMEZONE)%'
-    enable_email_channel: '%env(bool:ENABLE_EMAIL_CHANNEL)%'
-    enable_sms_channel: '%env(bool:ENABLE_SMS_CHANNEL)%'
-    alert_rate_limit: '%env(int:ALERT_RATE_LIMIT)%'
     env(ALERT_RATE_LIMIT): 300
     env(AVAILABLE_COMMUNICATION_CHANNELS): '["email", "sms"]'
     env(INFO_COMMUNICATION_CHANNELS): '["email"]'
@@ -36,9 +33,6 @@ services:
             - '../src/Domain/Entity/'
             - '../src/Kernel.php'
     _instanceof:
-        App\Application\Service\NotificationChannelServiceInterface:
-            tags: ['notification_channel_service']
-
         App\Notification\Management\Domain\Service\NotificationManagementPolicyInterface:
             tags: ['notification_management_policy_service']
         
@@ -47,15 +41,6 @@ services:
 
         App\Notification\Delivery\Infrastructure\Service\CommunicationChannelSenderInterface:
             tags: ['communication_channel_sender']
-
-    App\Domain\Policy\AvailableChannelsPolicy:
-        arguments:
-            $enableEmail: '%enable_email_channel%'
-            $enableSms: '%enable_sms_channel%'
-
-    App\Domain\Policy\RatePolicy:
-        arguments:
-            $alertRateLimit: '%alert_rate_limit%'
 
     App\Notification\Management\Domain\Service\RatePolicy:
         arguments:
