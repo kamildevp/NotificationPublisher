@@ -7,7 +7,6 @@ namespace App\Tests\Unit\Notification\Delivery\Application\EventSubscriber;
 use App\Notification\Delivery\Application\Command\DeliverNotificationCommand;
 use App\Notification\Delivery\Application\EventSubscriber\DeliveryScheduledSubscriber;
 use App\Notification\Delivery\Domain\Event\DeliveryScheduledEvent;
-use App\Notification\Delivery\Domain\Repository\DeliveryRepositoryInterface;
 use App\Notification\Shared\Domain\Entity\ValueObject\DeliveryId;
 use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
@@ -22,16 +21,13 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class DeliveryScheduledSubscriberTest extends TestCase
 {
-    private DeliveryRepositoryInterface&MockObject $deliveryRepositoryMock;
     private MessageBusInterface&MockObject $messageBusMock;
     private DeliveryScheduledSubscriber $service;
 
     protected function setUp(): void
     {
         $this->messageBusMock = $this->createMock(MessageBusInterface::class);
-        $this->deliveryRepositoryMock = $this->createMock(DeliveryRepositoryInterface::class);
         $this->service = new DeliveryScheduledSubscriber(
-            $this->deliveryRepositoryMock,
             $this->messageBusMock,
         );
     }

@@ -6,14 +6,12 @@ namespace App\Notification\Delivery\Application\EventSubscriber;
 
 use App\Notification\Delivery\Application\Command\DeliverNotificationCommand;
 use App\Notification\Delivery\Domain\Event\DeliveryScheduledEvent;
-use App\Notification\Delivery\Domain\Repository\DeliveryRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class DeliveryScheduledSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private DeliveryRepositoryInterface $deliveryRepository,
         private MessageBusInterface $commandBus,
     )
     {
