@@ -7,7 +7,6 @@ namespace App\Notification\Management\Application\Service;
 use App\Notification\Management\Application\Command\SendNotificationCommand;
 use App\Notification\Management\Domain\Factory\NotificationFactory;
 use App\Notification\Management\Domain\Repository\NotificationRepositoryInterface;
-use App\Notification\Management\Domain\Service\NotificationManagementPolicyInterface;
 use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Shared\Domain\ValueObject\Email;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
@@ -20,9 +19,6 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 #[AsMessageHandler]
 class SendNotificationHandler
 {
-    /**
-     * @param iterable<NotificationManagementPolicyInterface> $notificationPolicies
-     */
     public function __construct(
         private NotificationRepositoryInterface $notificationRepository,
         private EventDispatcherInterface $eventDispatcher,
