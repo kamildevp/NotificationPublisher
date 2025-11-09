@@ -21,7 +21,7 @@ use OpenApi\Attributes as OA;
 
 #[OA\Tag('Notification')]
 #[ServerErrorResponseDoc]
-class NotificationController extends AbstractController
+class SendNotificationController extends AbstractController
 {
     #[OA\Post(
         summary: 'Send notification',
