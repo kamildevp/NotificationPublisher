@@ -19,7 +19,7 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Messenger\HandleTrait;
 
-#[OA\Tag('Notification')]
+#[OA\Tag('Notification Management')]
 #[ServerErrorResponseDoc]
 class ListNotificationsController extends AbstractController
 {

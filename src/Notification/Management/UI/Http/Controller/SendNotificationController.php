@@ -19,7 +19,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use OpenApi\Attributes as OA;
 
-#[OA\Tag('Notification')]
+#[OA\Tag('Notification Management')]
 #[ServerErrorResponseDoc]
 class SendNotificationController extends AbstractController
 {

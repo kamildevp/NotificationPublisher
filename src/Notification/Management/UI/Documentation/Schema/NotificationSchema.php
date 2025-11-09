@@ -16,6 +16,7 @@ class NotificationSchema extends OA\Schema
             new OA\Property(
                 property: 'id', 
                 type: 'string', 
+                example: '596abaec-72b1-47ed-bbf4-d0c951fe9009'
             ),
             new OA\Property(
                 property: 'type', 
