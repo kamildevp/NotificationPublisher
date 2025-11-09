@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\EventSubscriber;
+namespace App\Shared\Application\EventSubscriber;
 
-use App\UserInterface\Http\Response\ExceptionResponseInterface;
-use App\UserInterface\Http\Response\HttpErrorResponse;
-use App\UserInterface\Http\Response\MethodNotAllowedResponse;
-use App\UserInterface\Http\Response\NotFoundResponse;
-use App\UserInterface\Http\Response\ServerErrorResponse;
+use App\Shared\UI\Http\Response\ExceptionResponseInterface;
+use App\Shared\UI\Http\Response\HttpErrorResponse;
+use App\Shared\UI\Http\Response\MethodNotAllowedResponse;
+use App\Shared\UI\Http\Response\NotFoundResponse;
+use App\Shared\UI\Http\Response\ServerErrorResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
