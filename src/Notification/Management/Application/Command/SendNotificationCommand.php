@@ -6,7 +6,7 @@ namespace App\Notification\Management\Application\Command;
 
 use App\Notification\Management\Application\DTO\RecipientDTO;
 
-class CreateNotificationCommand
+class SendNotificationCommand
 {
     public function __construct(
         private RecipientDTO $recipient,

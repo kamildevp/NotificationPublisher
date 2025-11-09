@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Notification\Management\Application\Service;
 
-use App\Notification\Management\Application\Command\CreateNotificationCommand;
+use App\Notification\Management\Application\Command\SendNotificationCommand;
 use App\Notification\Management\Application\DTO\RecipientDTO;
-use App\Notification\Management\Application\Service\CreateNotificationHandler;
+use App\Notification\Management\Application\Service\SendNotificationHandler;
 use App\Notification\Management\Domain\Entity\Notification;
 use App\Notification\Management\Domain\Factory\NotificationFactory;
 use App\Notification\Management\Domain\Repository\NotificationRepositoryInterface;
@@ -18,19 +18,19 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class CreateNotificationHandlerTest extends TestCase
+class SendNotificationHandlerTest extends TestCase
 {
     private NotificationRepositoryInterface&MockObject $notificationRepositoryMock;
     private EventDispatcherInterface&MockObject $eventDispatcherMock;
     private NotificationFactory&MockObject $notificationFactoryMock;
-    private CreateNotificationHandler $service;
+    private SendNotificationHandler $service;
 
     protected function setUp(): void
     {
         $this->notificationRepositoryMock = $this->createMock(NotificationRepositoryInterface::class);
         $this->eventDispatcherMock = $this->createMock(EventDispatcherInterface::class);
         $this->notificationFactoryMock = $this->createMock(NotificationFactory::class);
-        $this->service = new CreateNotificationHandler(
+        $this->service = new SendNotificationHandler(
             $this->notificationRepositoryMock, 
             $this->eventDispatcherMock,
             $this->notificationFactoryMock,
@@ -40,7 +40,7 @@ class CreateNotificationHandlerTest extends TestCase
     public function testInvokeCreatesNotificationAndDispatchesDomainEvents(): void
     {
         $recipientDto = new RecipientDTO('2a8045fd', 'user@example.com', '+48213721372');
-        $command = new CreateNotificationCommand(
+        $command = new SendNotificationCommand(
             $recipientDto,
             NotificationType::ALERT->value,
             ['message' => 'test']

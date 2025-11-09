@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notification\Management\Application\Service;
 
-use App\Notification\Management\Application\Command\CreateNotificationCommand;
+use App\Notification\Management\Application\Command\SendNotificationCommand;
 use App\Notification\Management\Domain\Factory\NotificationFactory;
 use App\Notification\Management\Domain\Repository\NotificationRepositoryInterface;
 use App\Notification\Management\Domain\Service\NotificationManagementPolicyInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-class CreateNotificationHandler
+class SendNotificationHandler
 {
     /**
      * @param iterable<NotificationManagementPolicyInterface> $notificationPolicies
@@ -32,7 +32,7 @@ class CreateNotificationHandler
 
     }
 
-    public function __invoke(CreateNotificationCommand $command): void
+    public function __invoke(SendNotificationCommand $command): void
     {
         $notificationType = NotificationType::from($command->getNotificationType());
         $recipientDto = $command->getRecipient();
