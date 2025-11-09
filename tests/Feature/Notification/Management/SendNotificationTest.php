@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature;
+namespace App\Tests\Feature\Notification\Management;
 
 use App\Notification\Management\Application\Command\SendNotificationCommand;
-use App\Tests\Feature\DataProvider\SendNotificationDataProvider;
+use App\Tests\Feature\Notification\Management\DataProvider\SendNotificationDataProvider;
 use App\Tests\Utils\BaseWebTestCase;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use Symfony\Component\Messenger\Transport\InMemory\InMemoryTransport;

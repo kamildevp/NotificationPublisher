@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\UI\Documentation\Response;
 
-use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 use OpenApi\Generator;
 
@@ -14,19 +13,12 @@ class SuccessResponseDoc extends OA\Response
     public function __construct(
         int $statusCode = 200, 
         ?string $description = 'Success Response', 
-        ?string $dataModel = null, 
-        ?OA\Property $dataProperty = null,
+        ?OA\Schema $dataSchema = null, 
         mixed $dataExample = Generator::UNDEFINED,
         array $headers = []
     )
     {
-        if(!$dataProperty){
-            $dataProperty = !is_null($dataModel) ? 
-                new OA\Property(property: 'data', ref: new Model(type: $dataModel)) : 
-                new OA\Property(property: 'data', type: 'object', example: $dataExample);
-        }
-
-
+        $dataProperty = new OA\Property(property: 'data', type: $dataSchema?->type, properties: $dataSchema?->properties, example: $dataExample);
         $content = new OA\JsonContent(
             type: "object",
             properties: [

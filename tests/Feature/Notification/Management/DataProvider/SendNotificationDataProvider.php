@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature\DataProvider;
+namespace App\Tests\Feature\Notification\Management\DataProvider;
 
 use App\Notification\Management\UI\Enum\NotificationType;
 
@@ -81,6 +81,37 @@ class SendNotificationDataProvider
                         'phone' => 'a'
                     ],
                     'notification_type' => NotificationType::INFO,
+                    'notification_data' => [
+                        'message' => '',
+                    ]
+                ],
+                [
+                    'recipient' => [
+                        'customer_identifier' => [
+                            'This value is too long. It should have 255 characters or less.'
+                        ],
+                        'email' => [
+                            'This value is not a valid email address.'
+                        ],
+                        'phone' => [
+                            'This value is not a valid phone number.'
+                        ]
+                    ],
+                    'notification_data' => [
+                        'message' => [
+                            'This value should not be blank.'
+                        ]
+                    ],
+                ]
+            ],
+                        [
+                [
+                    'recipient' => [
+                        'customer_identifier' => str_repeat('a', 256),
+                        'email' => 'user',
+                        'phone' => 'a'
+                    ],
+                    'notification_type' => NotificationType::ALERT,
                     'notification_data' => [
                         'message' => '',
                     ]
