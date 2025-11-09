@@ -2,7 +2,6 @@ vendor/
 
 .env.local
 .vscode/
-.env
 docker/db/data/
 
 # supervisor logs
