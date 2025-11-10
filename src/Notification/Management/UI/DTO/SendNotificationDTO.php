@@ -12,6 +12,7 @@ use OpenApi\Attributes as OA;
 #[CustomAssert\NotificationData]
 class SendNotificationDTO
 {
+    /** @param mixed[] $notificationData */
     public function __construct(
         #[Assert\Valid]
         private RecipientDTO $recipient,
@@ -34,6 +35,7 @@ class SendNotificationDTO
         return $this->notificationType;   
     }
 
+    /** @return mixed[] */
     public function getNotificationData(): array
     {
         return $this->notificationData;   

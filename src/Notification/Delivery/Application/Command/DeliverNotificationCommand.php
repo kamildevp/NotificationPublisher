@@ -11,6 +11,9 @@ use App\Notification\Shared\Domain\ValueObject\Recipient;
 
 class DeliverNotificationCommand
 {
+    /** 
+     * @param mixed[] $notificationData 
+     */
     public function __construct(
         private DeliveryId $deliveryId,
         private NotificationType $notificationType,
@@ -43,6 +46,7 @@ class DeliverNotificationCommand
         return $this->notificationRecipient;
     }
 
+    /** @return mixed[] */
     public function getNotificationData(): array
     {
         return $this->notificationData;

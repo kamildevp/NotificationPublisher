@@ -24,6 +24,9 @@ class SmsSender implements CommunicationChannelSenderInterface
         return $communicationChannel == CommunicationChannel::SMS;
     }
 
+    /**
+     * @param mixed[] $notificationData
+     */
     public function send(Recipient $recipient, NotificationType $notificationType, array $notificationData): void
     {
         $smsType = SmsType::fromNotificationType($notificationType);

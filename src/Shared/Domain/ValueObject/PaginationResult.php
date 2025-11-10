@@ -8,6 +8,9 @@ use JsonSerializable;
 
 class PaginationResult implements JsonSerializable
 {
+    /**
+     * @param mixed[] $items
+     */
     public function __construct(
         private array $items,
         private int $page,
@@ -19,6 +22,7 @@ class PaginationResult implements JsonSerializable
         
     }
 
+    /** @return mixed[] */
     public function getItems(): array
     {
         return $this->items;

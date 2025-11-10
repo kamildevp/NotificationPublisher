@@ -23,6 +23,7 @@ enum NotificationType: string
         };
     }
 
+    /** @return mixed[] */
     public function getDataExample(): array
     {
         return match($this){

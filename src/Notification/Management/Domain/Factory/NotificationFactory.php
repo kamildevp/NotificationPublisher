@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Notification\Management\Domain\Factory;
 
 use App\Notification\Management\Domain\Entity\Notification;
+use App\Notification\Management\Domain\Service\NotificationManagementPolicyInterface;
 use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
@@ -12,7 +13,7 @@ use App\Notification\Shared\Domain\ValueObject\Recipient;
 class NotificationFactory
 {
     /**
-     * @param iterable<NotificationManagementPolicyInterface> $notificationPolicies
+     * @param iterable<NotificationManagementPolicyInterface> $notificationManagementPolicies
      */
     public function __construct(
         private iterable $notificationManagementPolicies,
@@ -21,6 +22,9 @@ class NotificationFactory
         
     }
 
+    /**
+     * @param mixed[] $notificationData
+     */
     public function createNotification(
         NotificationId $notificationId,
         Recipient $recipient,

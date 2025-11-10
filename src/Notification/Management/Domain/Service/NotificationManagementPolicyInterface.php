@@ -9,5 +9,6 @@ use App\Notification\Shared\Domain\ValueObject\Recipient;
 
 interface NotificationManagementPolicyInterface
 {
+    /** @param mixed[] $notificationData */
     public function canNotificationBeSent(Recipient $recipient, NotificationType $notificationType, array $notificationData): bool;
 }

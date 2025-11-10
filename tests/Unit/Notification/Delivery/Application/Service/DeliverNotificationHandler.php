@@ -12,8 +12,11 @@ use App\Notification\Delivery\Domain\Repository\DeliveryRepositoryInterface;
 use App\Notification\Shared\Domain\Entity\ValueObject\DeliveryId;
 use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
 use App\Notification\Delivery\Infrastructure\Service\CommunicationChannelSenderInterface;
+use App\Notification\Shared\Domain\ValueObject\Email;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
+use App\Notification\Shared\Domain\ValueObject\Phone;
 use App\Notification\Shared\Domain\ValueObject\Recipient;
+use App\Shared\Domain\Event\DomainEventInterface;
 use ArrayIterator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -41,10 +44,10 @@ class DeliverNotificationHandlerTest extends TestCase
     public function testInvokeSendsNotificationUsingMatchingSender(): void
     {
         $command = new DeliverNotificationCommand(
-            $this->createMock(DeliveryId::class),
+            new DeliveryId('242f9242-3910-45da-9291-772bcaa4fc6b'),
             NotificationType::INFO,
             CommunicationChannel::EMAIL,
-            $this->createMock(Recipient::class),
+            new Recipient('2a8045fd', new Email('user@example.com'), new Phone('+48213721372')),
             ['message' => 'test']
         );
 
@@ -63,7 +66,7 @@ class DeliverNotificationHandlerTest extends TestCase
                 $command->getNotificationData()
             );
 
-        $eventMock = $this->createMock(DeliveryCompletedEvent::class);
+        $eventMock = $this->createMock(DomainEventInterface::class);
         $deliveryMock = $this->createMock(Delivery::class);
         $deliveryMock
             ->expects($this->once())
@@ -93,10 +96,10 @@ class DeliverNotificationHandlerTest extends TestCase
     public function testInvokeReturnsWhenNoMatchingSender(): void
     {
         $command = new DeliverNotificationCommand(
-            $this->createMock(DeliveryId::class),
+            new DeliveryId('242f9242-3910-45da-9291-772bcaa4fc6b'),
             NotificationType::INFO,
             CommunicationChannel::EMAIL,
-            $this->createMock(Recipient::class),
+            new Recipient('2a8045fd', new Email('user@example.com'), new Phone('+48213721372')),
             ['message' => 'test']
         );
 

@@ -22,6 +22,7 @@ class RatePolicy implements NotificationManagementPolicyInterface
 
     }
 
+    /** @param mixed[] $notificationData */
     public function canNotificationBeSent(Recipient $recipient, NotificationType $notificationType, array $notificationData): bool
     {
         $rateConfig =  $this->config[$notificationType->value] ?? null;
@@ -29,6 +30,7 @@ class RatePolicy implements NotificationManagementPolicyInterface
             return true;
         }
 
+        /** @phpstan-ignore-next-line */
         if(!$rateConfig instanceof RateConfig)
         {
             throw new InvalidArgumentException(sprintf('Expected %s for notification type %s config, got %s', RateConfig::class, $notificationType->value, get_debug_type($rateConfig)));

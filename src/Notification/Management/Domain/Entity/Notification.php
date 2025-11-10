@@ -15,6 +15,9 @@ use DateTimeImmutable;
 
 class Notification extends AggregateRoot
 {
+    /**
+     * @param mixed[] $data
+     */
     private function __construct(
         private NotificationId $id,
         private NotificationType $type,
@@ -37,6 +40,7 @@ class Notification extends AggregateRoot
         return $this->type;
     }
 
+    /** @return mixed[] */
     public function getData(): array
     {
         return $this->data;
@@ -57,6 +61,9 @@ class Notification extends AggregateRoot
         return $this->createdAt;
     }
 
+    /**
+     * @param mixed[] $notificationData
+     */
     public static function create(
         NotificationId $notificationId,
         NotificationType $notificationType,
@@ -77,6 +84,9 @@ class Notification extends AggregateRoot
         return $notification;
     }
 
+    /**
+     * @param mixed[] $notificationData
+     */
     public static function discard(
         NotificationId $notificationId,
         NotificationType $notificationType,

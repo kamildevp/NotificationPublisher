@@ -8,8 +8,8 @@ use App\Notification\Management\UI\Enum\NotificationType;
 
 class SendNotificationDataProvider
 {
-    
-    public static function validDataCases()
+    /** @return mixed[] */
+    public static function validDataCases(): array
     {
         return [
             [
@@ -41,7 +41,8 @@ class SendNotificationDataProvider
         ];
     }
 
-    public static function validationDataCases()
+    /** @return mixed[] */
+    public static function validationDataCases(): array
     {
         return [
             [

@@ -20,6 +20,7 @@ class ListNotificationsHandler
 
     }
 
+    /** @return mixed[] */
     public function __invoke(ListNotificationsQuery $query): array
     {
         $paginationResult = $this->notificationRepository->paginate(

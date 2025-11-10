@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Notification\Delivery\UI\Http\Controller;
 
 use App\Notification\Delivery\Application\Query\ListDeliveriesQuery;
-use App\Notification\Delivery\UI\Documentation\Schema\DeliverySchema;
+use App\Notification\Delivery\UI\Documentation\Schema\DeliveryListItems;
 use App\Notification\Delivery\UI\DTO\ListDeliveriesDTO;
 use App\Shared\UI\Documentation\Response\ServerErrorResponseDoc;
 use App\Shared\UI\Documentation\Response\SuccessResponseDoc;
@@ -26,17 +26,17 @@ class ListDeliveriesController extends AbstractController
     use HandleTrait;
 
     public function __construct(
-        private MessageBusInterface $messageBus,
+        MessageBusInterface $messageBus,
     ) 
     {
-        
+        $this->messageBus = $messageBus;
     }
 
     #[OA\Get(
         summary: 'List deliveries',
         description: 'Returns paginated notification deliveries list'
     )]
-    #[SuccessResponseDoc(dataSchema: new PaginationResultSchema(new DeliverySchema()))]
+    #[SuccessResponseDoc(dataSchema: new PaginationResultSchema(new DeliveryListItems()))]
     #[Route('/delivery', name: 'list_deliveries', methods: ['GET'])]
     public function listNotifications(
         #[MapQueryString] ListDeliveriesDTO $dto

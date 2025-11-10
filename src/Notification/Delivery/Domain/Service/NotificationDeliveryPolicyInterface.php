@@ -10,6 +10,7 @@ use App\Notification\Shared\Domain\ValueObject\Recipient;
 
 interface NotificationDeliveryPolicyInterface
 {
+    /** @param mixed[] $notificationData */
     public function canNotificationBeDelivered(
         Recipient $recipient, 
         NotificationType $notificationType, 

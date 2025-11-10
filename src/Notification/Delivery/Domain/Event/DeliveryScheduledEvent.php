@@ -12,6 +12,9 @@ use App\Shared\Domain\Event\DomainEventInterface;
 
 final class DeliveryScheduledEvent implements DomainEventInterface
 {
+    /** 
+     * @param mixed[] $notificationData 
+     */
     public function __construct(
         private DeliveryId $deliveryId,
         private NotificationType $notificationType,
@@ -43,6 +46,7 @@ final class DeliveryScheduledEvent implements DomainEventInterface
         return $this->notificationRecipient;
     }
 
+    /** @return mixed[] */
     public function getNotificationData(): array
     {
         return $this->notificationData;

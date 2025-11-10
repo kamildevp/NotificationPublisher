@@ -12,5 +12,8 @@ interface CommunicationChannelSenderInterface
 {
     public function supports(CommunicationChannel $channel): bool;
 
+    /**
+     * @param mixed[] $notificationData
+     */
     public function send(Recipient $recipient, NotificationType $notificationType, array $notificationData): void;
 }

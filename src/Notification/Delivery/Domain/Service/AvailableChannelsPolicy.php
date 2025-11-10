@@ -19,6 +19,7 @@ class AvailableChannelsPolicy implements NotificationDeliveryPolicyInterface
 
     }
 
+    /** @param mixed[] $notificationData */
     public function canNotificationBeDelivered(
         Recipient $recipient, 
         NotificationType $notificationType, 

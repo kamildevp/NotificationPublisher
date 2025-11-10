@@ -9,6 +9,9 @@ class MethodNotAllowedResponse extends ApiResponse
     public const RESPONSE_STATUS = 405;
     public const RESPONSE_MESSAGE = 'Method not allowed';
 
+    /**
+     * @param array<string, string> $headers
+     */
     public function __construct(string $message = self::RESPONSE_MESSAGE, array $headers = [])
     {
         parent::__construct([

@@ -6,7 +6,8 @@ namespace App\Tests\Feature\Notification\Delivery\DataProvider;
 
 class ListDeliveriesDataProvider
 {    
-    public static function listDataCases()
+    /** @return mixed[] */
+    public static function listDataCases(): array
     {
         return [
             [1, 20, 35],

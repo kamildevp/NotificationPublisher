@@ -18,7 +18,9 @@ class SuccessResponseDoc extends OA\Response
         array $headers = []
     )
     {
-        $dataProperty = new OA\Property(property: 'data', type: $dataSchema?->type, properties: $dataSchema?->properties, example: $dataExample);
+        /** @var \OpenApi\Attributes\Property[]|null */
+        $dataProperties = $dataSchema?->properties;
+        $dataProperty = new OA\Property(property: 'data', type: $dataSchema?->type, properties: $dataProperties, example: $dataExample);
         $content = new OA\JsonContent(
             type: "object",
             properties: [

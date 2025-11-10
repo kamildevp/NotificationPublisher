@@ -10,6 +10,9 @@ class ApiResponse extends JsonResponse
 {
     private mixed $rawData;
 
+    /**
+     * @param array<string, string> $headers
+     */
     public function __construct(mixed $data = null, int $statusCode = 200, array $headers = [])
     {
         $this->rawData = $data;

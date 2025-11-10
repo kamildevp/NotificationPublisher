@@ -20,6 +20,9 @@ class SendNotificationTest extends BaseWebTestCase
         $this->messengerTransport = $this->container->get('messenger.transport.async');
     }
 
+    /**
+     * @param mixed[] $params
+     */
     #[DataProviderExternal(SendNotificationDataProvider::class, 'validDataCases')]
     public function testSendNotification(array $params): void
     {
@@ -38,6 +41,10 @@ class SendNotificationTest extends BaseWebTestCase
         $this->assertEquals($params['notification_data'], $command->getNotificationData());
     }
 
+    /**
+     * @param mixed[] $params
+     * @param mixed[] $expectedErrors
+     */
     #[DataProviderExternal(SendNotificationDataProvider::class, 'validationDataCases')]
     public function testSendNotificationValidation(array $params, array $expectedErrors): void
     {

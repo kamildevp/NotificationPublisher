@@ -23,6 +23,9 @@ class EmailSender implements CommunicationChannelSenderInterface
         return $communicationChannel == CommunicationChannel::EMAIL;
     }
 
+    /**
+     * @param mixed[] $notificationData
+     */
     public function send(Recipient $recipient, NotificationType $notificationType, array $notificationData): void
     {
         $emailType = EmailType::fromNotificationType($notificationType);

@@ -18,6 +18,9 @@ use DateTimeImmutable;
 
 class Delivery extends AggregateRoot
 {
+    /** 
+     * @param mixed[] $notificationData 
+     */
     private function __construct(
         private DeliveryId $id,
         private NotificationId $notificationId,
@@ -53,6 +56,7 @@ class Delivery extends AggregateRoot
         return $this->communicationChannel;
     }
 
+    /** @return mixed[] */
     public function getNotificationData(): array
     {
         return $this->notificationData;
@@ -78,6 +82,9 @@ class Delivery extends AggregateRoot
         return $this->completedAt;
     }
 
+    /** 
+     * @param mixed[] $notificationData 
+     */
     public static function schedule(
         DeliveryId $deliveryId,
         NotificationId $notificationId,

@@ -26,6 +26,10 @@ class DeliveryFactory
         
     }
 
+    /** 
+     * @param mixed[] $notificationData 
+     * @return Delivery[]
+     */
     public function scheduleNotificationDeliveries(
         NotificationId $notificationId,
         Recipient $recipient, 
@@ -61,6 +65,9 @@ class DeliveryFactory
         return $deliveries;
     }
 
+    /** 
+     * @param mixed[] $notificationData 
+     */
     private function validateDeliveryPolicies(
         Recipient $recipient, 
         NotificationType $notificationType, 

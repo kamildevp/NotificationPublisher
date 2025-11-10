@@ -20,6 +20,7 @@ use PHPUnit\Framework\TestCase;
 class NotificationFactoryTest extends TestCase
 {
     private NotificationManagementPolicyInterface&MockObject $notificationManagementPolicyMock;
+    /** @var iterable<NotificationManagementPolicyInterface> */
     private iterable $notificationManagementPoliciesMock;
     private NotificationFactory $service;
 

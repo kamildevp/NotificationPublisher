@@ -20,6 +20,7 @@ class ListDeliveriesHandler
 
     }
 
+    /** @return mixed[] */
     public function __invoke(ListDeliveriesQuery $query): array
     {
         $paginationResult = $this->deliveryRepository->paginate(

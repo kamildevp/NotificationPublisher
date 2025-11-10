@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace App\Tests\Utils\Trait;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\DomCrawler\Crawler;
 
 trait RequestTestTools
 {
+    /**
+     * @param mixed[] $parameters
+     * @param mixed[] $files
+     * @param array<string,string> $server
+     */
     protected function jsonRequest(
         KernelBrowser $client,
         string $method,
@@ -16,7 +22,8 @@ trait RequestTestTools
         array $files = [],
         array $server = [],
         ?string $content = null,
-    ) {
+    ): Crawler
+    {
         $method = strtoupper($method);
 
         $headers = [

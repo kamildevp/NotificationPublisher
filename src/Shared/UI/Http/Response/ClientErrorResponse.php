@@ -8,6 +8,9 @@ class ClientErrorResponse extends ApiResponse
 {
     public const RESPONSE_STATUS = 400;
 
+    /**
+     * @param array<string, string> $headers
+     */
     public function __construct(int $statusCode = self::RESPONSE_STATUS, string $message = '', mixed $errors = null, array $headers = [])
     {
         parent::__construct([

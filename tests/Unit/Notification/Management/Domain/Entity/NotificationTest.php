@@ -37,10 +37,12 @@ class NotificationTest extends TestCase
         $events = $notification->pullDomainEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(NotificationCreatedEvent::class, $events[0]);
-        $this->assertEquals($notificationId, $events[0]->getNotificationId());
-        $this->assertEquals(NotificationType::ALERT, $events[0]->getNotificationType());
-        $this->assertEquals($notificationData, $events[0]->getNotificationData());
-        $this->assertEquals($recipient, $events[0]->getNotificationRecipient());
+        /** @var NotificationCreatedEvent */
+        $event = $events[0];
+        $this->assertEquals($notificationId, $event->getNotificationId());
+        $this->assertEquals(NotificationType::ALERT, $event->getNotificationType());
+        $this->assertEquals($notificationData, $event->getNotificationData());
+        $this->assertEquals($recipient, $event->getNotificationRecipient());
     }
 
     public function testNotificationCanBeDiscarded(): void
@@ -62,9 +64,11 @@ class NotificationTest extends TestCase
         $events = $notification->pullDomainEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(NotificationDiscardedEvent::class, $events[0]);
-        $this->assertEquals($notificationId, $events[0]->getNotificationId());
-        $this->assertEquals(NotificationType::ALERT, $events[0]->getNotificationType());
-        $this->assertEquals($notificationData, $events[0]->getNotificationData());
-        $this->assertEquals($recipient, $events[0]->getNotificationRecipient());
+        /** @var NotificationDiscardedEvent */
+        $event = $events[0];
+        $this->assertEquals($notificationId, $event->getNotificationId());
+        $this->assertEquals(NotificationType::ALERT, $event->getNotificationType());
+        $this->assertEquals($notificationData, $event->getNotificationData());
+        $this->assertEquals($recipient, $event->getNotificationRecipient());
     }
 }

@@ -9,6 +9,9 @@ class ServerErrorResponse extends ApiResponse
     public const RESPONSE_STATUS = 500;
     public const RESPONSE_MESSAGE = 'Server Error';
 
+    /**
+     * @param array<string, string> $headers
+     */
     public function __construct(
         string $message = self::RESPONSE_MESSAGE, 
         int $statusCode = 500, 

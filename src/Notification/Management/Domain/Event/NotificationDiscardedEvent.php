@@ -11,6 +11,9 @@ use App\Shared\Domain\Event\DomainEventInterface;
 
 final class NotificationDiscardedEvent implements DomainEventInterface
 {
+    /**
+     * @param mixed[] $notificationData
+     */
     public function __construct(
         private NotificationId $notificationId,
         private NotificationType $notificationType,
@@ -36,6 +39,7 @@ final class NotificationDiscardedEvent implements DomainEventInterface
         return $this->notificationRecipient;
     }
 
+    /** @return mixed[] */
     public function getNotificationData(): array
     {
         return $this->notificationData;

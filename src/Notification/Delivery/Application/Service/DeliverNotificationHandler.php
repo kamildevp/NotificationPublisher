@@ -27,7 +27,7 @@ class DeliverNotificationHandler
         
     }
 
-    public function __invoke(DeliverNotificationCommand $command)
+    public function __invoke(DeliverNotificationCommand $command): void
     {
         $matchingSender = null;
         foreach($this->communicationChannelSenders as $sender){

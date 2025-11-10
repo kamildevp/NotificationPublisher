@@ -51,11 +51,13 @@ class DeliveryTest extends TestCase
         $events = $delivery->pullDomainEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(DeliveryScheduledEvent::class, $events[0]);
-        $this->assertEquals($deliveryId, $events[0]->getDeliveryId());
-        $this->assertEquals(NotificationType::ALERT, $events[0]->getNotificationType());
-        $this->assertEquals(CommunicationChannel::EMAIL, $events[0]->getCommunicationChannel());
-        $this->assertEquals($notificationData, $events[0]->getNotificationData());
-        $this->assertEquals($recipient, $events[0]->getNotificationRecipient());
+        /** @var DeliveryScheduledEvent */
+        $event = $events[0];
+        $this->assertEquals($deliveryId, $event->getDeliveryId());
+        $this->assertEquals(NotificationType::ALERT, $event->getNotificationType());
+        $this->assertEquals(CommunicationChannel::EMAIL, $event->getCommunicationChannel());
+        $this->assertEquals($notificationData, $event->getNotificationData());
+        $this->assertEquals($recipient, $event->getNotificationRecipient());
     }
 
     public function testNotificationDeliveryCanBeMarkedAsCompleted(): void
@@ -83,7 +85,9 @@ class DeliveryTest extends TestCase
         $events = $delivery->pullDomainEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(DeliveryCompletedEvent::class, $events[0]);
-        $this->assertEquals($deliveryId, $events[0]->getDeliveryId());
+        /** @var DeliveryCompletedEvent */
+        $event = $events[0];
+        $this->assertEquals($deliveryId, $event->getDeliveryId());
     }
 
     public function testNotificationDeliveryCanBeMarkedAsFailed(): void
@@ -111,6 +115,8 @@ class DeliveryTest extends TestCase
         $events = $delivery->pullDomainEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(DeliveryFailedEvent::class, $events[0]);
-        $this->assertEquals($deliveryId, $events[0]->getDeliveryId());
+        /** @var DeliveryFailedEvent */
+        $event = $events[0];
+        $this->assertEquals($deliveryId, $event->getDeliveryId());
     }
 }

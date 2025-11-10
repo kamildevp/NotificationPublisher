@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Notification\Management\UI\Http\Controller;
 
 use App\Notification\Management\Application\Query\ListNotificationsQuery;
-use App\Notification\Management\UI\Documentation\Schema\NotificationSchema;
+use App\Notification\Management\UI\Documentation\Schema\NotificationListItems;
 use App\Notification\Management\UI\DTO\ListNotificationsDTO;
 use App\Shared\UI\Documentation\Response\ServerErrorResponseDoc;
 use App\Shared\UI\Documentation\Response\SuccessResponseDoc;
@@ -26,17 +26,17 @@ class ListNotificationsController extends AbstractController
     use HandleTrait;
 
     public function __construct(
-        private MessageBusInterface $messageBus,
+        MessageBusInterface $messageBus,
     ) 
     {
-        
+        $this->messageBus = $messageBus;
     }
 
     #[OA\Get(
         summary: 'List notifications',
         description: 'Returns paginated notification list'
     )]
-    #[SuccessResponseDoc(dataSchema: new PaginationResultSchema(new NotificationSchema()))]
+    #[SuccessResponseDoc(dataSchema: new PaginationResultSchema(new NotificationListItems()))]
     #[Route('/notification', name: 'list_notifications', methods: ['GET'])]
     public function listNotifications(
         #[MapQueryString] ListNotificationsDTO $dto

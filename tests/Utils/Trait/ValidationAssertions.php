@@ -8,6 +8,10 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 trait ValidationAssertions
 {
+    /**
+     * @param mixed[] $params
+     * @param mixed[] $expectedErrors
+     */
     protected function assertPathValidation(KernelBrowser $client, string $method, string $path, array $params, array $expectedErrors): void
     {
         $this->jsonRequest($client, $method, $path, $params);

@@ -6,6 +6,10 @@ namespace App\Tests\Utils\Trait;
 
 trait ListAssertions
 {
+    /**
+     * @param mixed[] $responseData
+     * @param mixed[] $expectedItems
+     */
     protected function assertPaginatorResponse(array $responseData, int $page, int $perPage, int $total, array $expectedItems): void
     {
         $pagesCount = ceil($total/$perPage);
