@@ -98,7 +98,7 @@ class Delivery extends AggregateRoot
             new DateTimeImmutable()
         );
 
-        $delivery->recordDomainEvent(new DeliveryScheduledEvent($deliveryId, $notificationId, $notificationType, $communicationChannel, $recipient, $notificationData));
+        $delivery->recordDomainEvent(new DeliveryScheduledEvent($deliveryId, $notificationType, $communicationChannel, $recipient, $notificationData));
         return $delivery;
     }
 

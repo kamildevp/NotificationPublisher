@@ -22,7 +22,6 @@ class DeliveryScheduledSubscriber implements EventSubscriberInterface
     {
         $this->commandBus->dispatch(new DeliverNotificationCommand(
             $event->getDeliveryId(),
-            $event->getNotificationId(),
             $event->getNotificationType(),
             $event->getCommunicationChannel(),
             $event->getNotificationRecipient(),

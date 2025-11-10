@@ -10,7 +10,6 @@ use App\Notification\Delivery\Domain\Entity\Delivery;
 use App\Notification\Delivery\Domain\Event\DeliveryCompletedEvent;
 use App\Notification\Delivery\Domain\Repository\DeliveryRepositoryInterface;
 use App\Notification\Shared\Domain\Entity\ValueObject\DeliveryId;
-use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
 use App\Notification\Delivery\Infrastructure\Service\CommunicationChannelSenderInterface;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
@@ -43,7 +42,6 @@ class DeliverNotificationHandlerTest extends TestCase
     {
         $command = new DeliverNotificationCommand(
             $this->createMock(DeliveryId::class),
-            $this->createMock(NotificationId::class),
             NotificationType::INFO,
             CommunicationChannel::EMAIL,
             $this->createMock(Recipient::class),
@@ -96,7 +94,6 @@ class DeliverNotificationHandlerTest extends TestCase
     {
         $command = new DeliverNotificationCommand(
             $this->createMock(DeliveryId::class),
-            $this->createMock(NotificationId::class),
             NotificationType::INFO,
             CommunicationChannel::EMAIL,
             $this->createMock(Recipient::class),

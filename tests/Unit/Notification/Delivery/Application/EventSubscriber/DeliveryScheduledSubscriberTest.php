@@ -8,7 +8,6 @@ use App\Notification\Delivery\Application\Command\DeliverNotificationCommand;
 use App\Notification\Delivery\Application\EventSubscriber\DeliveryScheduledSubscriber;
 use App\Notification\Delivery\Domain\Event\DeliveryScheduledEvent;
 use App\Notification\Shared\Domain\Entity\ValueObject\DeliveryId;
-use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
 use App\Notification\Shared\Domain\ValueObject\Email;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
@@ -36,7 +35,6 @@ class DeliveryScheduledSubscriberTest extends TestCase
     {
         $event = new DeliveryScheduledEvent(
             new DeliveryId('242f924c-3910-45da-9291-772bcaa4fc6b'),
-            new NotificationId('242f924c-3910-45da-9291-772bcaa4fc6b'),
             NotificationType::INFO,
             CommunicationChannel::EMAIL,
             new Recipient('2a8045fd', new Email('user@example.com'), new Phone('+48213721372')),
@@ -49,7 +47,6 @@ class DeliveryScheduledSubscriberTest extends TestCase
             ->with($this->callback(fn($arg) => 
                 $arg instanceof DeliverNotificationCommand &&
                 $arg->getDeliveryId() == $event->getDeliveryId() &&
-                $arg->getNotificationId() == $event->getNotificationId() &&
                 $arg->getNotificationType() == $event->getNotificationType() &&
                 $arg->getCommunicationChannel() == $event->getCommunicationChannel() &&
                 $arg->getNotificationRecipient() == $event->getNotificationRecipient() &&

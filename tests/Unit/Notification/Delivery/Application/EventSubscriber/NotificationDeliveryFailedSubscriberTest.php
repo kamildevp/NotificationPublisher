@@ -11,7 +11,6 @@ use App\Notification\Delivery\Domain\Event\DeliveryFailedEvent;
 use App\Notification\Delivery\Domain\Repository\DeliveryRepositoryInterface;
 use App\Notification\Delivery\Domain\Service\DeliveryRetryPolicy;
 use App\Notification\Shared\Domain\Entity\ValueObject\DeliveryId;
-use App\Notification\Shared\Domain\Entity\ValueObject\NotificationId;
 use App\Notification\Delivery\Domain\ValueObject\CommunicationChannel;
 use App\Notification\Shared\Domain\ValueObject\Email;
 use App\Notification\Shared\Domain\ValueObject\NotificationType;
@@ -52,7 +51,6 @@ class NotificationDeliveryFailedSubscriberTest extends TestCase
     {
         $command = new DeliverNotificationCommand(
             new DeliveryId('242f924c-3910-45da-9291-772bcaa4fc6b'),
-            new NotificationId('242f924c-3910-45da-9291-772bcaa4fc6b'),
             NotificationType::INFO,
             CommunicationChannel::EMAIL,
             new Recipient('2a8045fd', new Email('user@example.com'), new Phone('+48213721372')),
@@ -84,7 +82,6 @@ class NotificationDeliveryFailedSubscriberTest extends TestCase
             ->with($this->callback(fn($arg) => 
                     $arg instanceof DeliverNotificationCommand &&
                     $arg->getDeliveryId() == $command->getDeliveryId() &&
-                    $arg->getNotificationId() == $command->getNotificationId() &&
                     $arg->getNotificationType() == $command->getNotificationType() &&
                     $arg->getCommunicationChannel() == $command->getCommunicationChannel() &&
                     $arg->getNotificationRecipient() == $command->getNotificationRecipient() &&
@@ -107,7 +104,6 @@ class NotificationDeliveryFailedSubscriberTest extends TestCase
     {
         $command = new DeliverNotificationCommand(
             new DeliveryId('242f924c-3910-45da-9291-772bcaa4fc6b'),
-            new NotificationId('242f924c-3910-45da-9291-772bcaa4fc6b'),
             NotificationType::INFO,
             CommunicationChannel::EMAIL,
             new Recipient('2a8045fd', new Email('user@example.com'), new Phone('+48213721372')),

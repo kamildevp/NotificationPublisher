@@ -52,7 +52,6 @@ class DeliveryTest extends TestCase
         $this->assertCount(1, $events);
         $this->assertInstanceOf(DeliveryScheduledEvent::class, $events[0]);
         $this->assertEquals($deliveryId, $events[0]->getDeliveryId());
-        $this->assertEquals($notificationId, $events[0]->getNotificationId());
         $this->assertEquals(NotificationType::ALERT, $events[0]->getNotificationType());
         $this->assertEquals(CommunicationChannel::EMAIL, $events[0]->getCommunicationChannel());
         $this->assertEquals($notificationData, $events[0]->getNotificationData());

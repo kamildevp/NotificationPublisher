@@ -41,7 +41,6 @@ class NotificationDeliveryFailedSubscriber implements EventSubscriberInterface
 
             $this->commandBus->dispatch(new DeliverNotificationCommand(
                 $message->getDeliveryId(),
-                $message->getNotificationId(),
                 $message->getNotificationType(),
                 $message->getCommunicationChannel(),
                 $message->getNotificationRecipient(),
