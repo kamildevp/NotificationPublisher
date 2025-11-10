@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Notification\Management\Application\Factory;
+namespace App\Tests\Unit\Notification\Management\Domain\Factory;
 
 use App\Notification\Management\Domain\Factory\NotificationFactory;
 use App\Notification\Management\Domain\Service\NotificationManagementPolicyInterface;
