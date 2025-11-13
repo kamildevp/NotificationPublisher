@@ -6,6 +6,9 @@ namespace App\Tests\Utils\Trait;
 
 trait ResponseAssertions
 {
+    /**
+     * @param mixed[] $decodedResponse
+     */
     protected function assertSuccessfulResponse(array $decodedResponse): void
     {
         $this->assertResponseIsSuccessful();
@@ -14,12 +17,18 @@ trait ResponseAssertions
         $this->assertArrayHasKey('data', $decodedResponse);
     }
 
+    /**
+     * @param mixed[] $decodedResponse
+     */
     protected function assertFailureResponse(array $decodedResponse): void
     {
         $this->assertEquals('fail', $decodedResponse['status']);
         $this->assertArrayHasKey('data', $decodedResponse);
     }
 
+    /**
+     * @param mixed[] $decodedResponse
+     */
     protected function assertValidationErrorResponse(array $decodedResponse): void
     {
         $this->assertFailureResponse($decodedResponse);

@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 trait ResponseTestTools
 {
+    /**
+     * @return mixed[]
+     */
     protected function getJsonResponse(KernelBrowser $client): array
     {
         $this->assertJsonResponse();
@@ -15,6 +18,12 @@ trait ResponseTestTools
         return json_decode($responseContent, true);
     }
 
+    /**
+     * @param mixed[] $parameters
+     * @param mixed[] $files
+     * @param array<string,string> $server
+     * @return mixed[]
+     */
     protected function getFailureResponseData(
         KernelBrowser $client,
         string $method,
@@ -33,6 +42,12 @@ trait ResponseTestTools
         return $decodedResponse['data'];
     }
 
+    /**
+     * @param mixed[] $parameters
+     * @param mixed[] $files
+     * @param array<string,string> $server
+     * @return mixed[]
+     */
     protected function getSuccessfulResponseData(
         KernelBrowser $client,
         string $method,

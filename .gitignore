@@ -2,7 +2,6 @@ vendor/
 
 .env.local
 .vscode/
-.env
 docker/db/data/
 
 # supervisor logs
@@ -23,3 +22,7 @@ supervisord.pid
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

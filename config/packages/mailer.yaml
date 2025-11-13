@@ -1,5 +1,5 @@
 framework:
     mailer:
-        dsn: 'failover(%env(MAILER_AMAZON_SES_DSN)% %env(MAILER_BUILTIN_DSN)%)'
+        dsn: 'failover(%env(MAILER_PRIMARY_DSN)% %env(MAILER_SECONDARY_DSN)%)'
         envelope:
             sender: '%env(MAILER_SENDER)%'

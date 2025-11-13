@@ -1,7 +1,15 @@
-controllers:
+notification_management:
     resource:
-        path: ../src/UserInterface/Http/Controller/
-        namespace: App\UserInterface\Http\Controller
+        path: ../src/Notification/Management/UI/Http/Controller/
+        namespace: App\Notification\Management\UI\Http\Controller
+    type: attribute
+    prefix: '/api'
+    trailing_slash_on_root: false
+
+Notification_delivery:
+    resource:
+        path: ../src/Notification/Delivery/UI/Http/Controller/
+        namespace: App\Notification\Delivery\UI\Http\Controller
     type: attribute
     prefix: '/api'
     trailing_slash_on_root: false

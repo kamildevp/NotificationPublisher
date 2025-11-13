@@ -5,19 +5,39 @@ doctrine:
                 use_savepoints: true
                 url: '%env(resolve:DATABASE_URL)%'
                 server_version: '15'
+        types:
+            notification_id: App\Notification\Shared\Infrastructure\Doctrine\Type\NotificationIdType
+            delivery_id: App\Notification\Shared\Infrastructure\Doctrine\Type\DeliveryIdType
+            notification_type: App\Notification\Shared\Infrastructure\Doctrine\Type\NotificationTypeType
+            communication_channel: App\Notification\Delivery\Infrastructure\Doctrine\Type\CommunicationChannelType
+            email: App\Notification\Shared\Infrastructure\Doctrine\Type\EmailType
+            phone: App\Notification\Shared\Infrastructure\Doctrine\Type\PhoneType
+            notification_state: App\Notification\Management\Infrastructure\Doctrine\Type\NotificationStateType
+            delivery_status: App\Notification\Delivery\Infrastructure\Doctrine\Type\DeliveryStatusType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            Domain:
+            NotificationSharedValueObject:
                 is_bundle: false
-                type: attribute       # or annotation/xml/yaml depending on your setup
-                dir: '%kernel.project_dir%/src/Domain/Entity'
-                prefix: 'App\Domain\Entity'
-                alias: Domain
-
+                type: xml
+                dir: '%kernel.project_dir%/src/Notification/Shared/Infrastructure/Doctrine/Mapping/Entity/Embeddable'
+                prefix: 'App\Notification\Shared\Domain\ValueObject'
+                alias: NotificationSharedValueObject
+            NotificationManagementEntity:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Notification/Management/Infrastructure/Doctrine/Mapping/Entity'
+                prefix: 'App\Notification\Management\Domain\Entity'
+                alias: NotificationManagementEntity
+            NotificationDeliveryEntity:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Notification/Delivery/Infrastructure/Doctrine/Mapping/Entity'
+                prefix: 'App\Notification\Delivery\Domain\Entity'
+                alias: NotificationDeliveryEntity
 when@test:
     doctrine:
         dbal:

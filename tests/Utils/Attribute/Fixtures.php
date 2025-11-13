@@ -9,6 +9,9 @@ use Attribute;
 #[\Attribute(Attribute::TARGET_METHOD)]
 class Fixtures
 {
+    /**
+     * @param class-string[] $fixtures
+     */
     public function __construct(public array $fixtures)
     {
         
