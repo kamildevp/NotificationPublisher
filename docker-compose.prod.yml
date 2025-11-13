@@ -1,0 +1,15 @@
+services:
+  nginx:
+    hostname: notification-publisher-nginx
+    networks:
+      - proxy
+
+  database:
+    hostname: notification-publisher-db
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: proxy
+    external: true
